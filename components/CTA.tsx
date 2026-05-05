@@ -4,8 +4,8 @@ import { useRef, useState, FormEvent } from 'react'
 import { motion, useInView } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 
-const EMAILJS_SERVICE  = 'service_qgvupul'
-const EMAILJS_TEMPLATE = 'template_xieatve'
+const EMAILJS_SERVICE  = 'service_s8pk03d'
+const EMAILJS_TEMPLATE = 'template_nmbxu0b'
 const EMAILJS_KEY      = '2CfYwBSRdB0lMStLz'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
@@ -136,12 +136,12 @@ export default function CTA() {
 
               {status === 'success' && (
                 <p className="font-sans text-xs text-emerald-400 tracking-wide">
-                  ✓ Messaggio inviato con successo!
+                  ✓ Messaggio inviato! Ti risponderemo presto.
                 </p>
               )}
               {status === 'error' && (
                 <p className="font-sans text-xs text-red-400 tracking-wide">
-                  ✗ Errore nell&apos;invio. Riprova o scrivi direttamente via email.
+                  ✗ Errore nell&apos;invio, riprova.
                 </p>
               )}
             </div>
