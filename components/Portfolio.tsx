@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 
 type Badge = 'LIVE' | 'IN DEV' | null
@@ -9,7 +10,7 @@ interface Project {
   title:    string
   category: string
   badge:    Badge
-  gradient: string
+  image?:   string
   url?:     string
 }
 
@@ -17,35 +18,33 @@ const PROJECTS: Project[] = [
   {
     title:    'Castello di Carlo V',
     category: 'Sito istituzionale',
-    badge:    null,
-    gradient: 'linear-gradient(160deg, #1a1108 0%, #0f0c06 100%)',
+    badge:    'LIVE',
+    image:    '/images/portfolio/castello.png',
     url:      'https://www.castellocarlovcrotone.it',
   },
   {
     title:    'Premio Castello',
     category: 'Evento & Premio',
-    badge:    null,
-    gradient: 'linear-gradient(160deg, #0e1017 0%, #08090f 100%)',
+    badge:    'LIVE',
+    image:    '/images/portfolio/premio.png',
     url:      'https://www.premiocastellocrotone.it',
   },
   {
     title:    'Studio Elia',
     category: 'Sito professionale',
     badge:    'LIVE',
-    gradient: 'linear-gradient(160deg, #0a1018 0%, #060a10 100%)',
+    image:    '/images/portfolio/elia.png',
     url:      'https://www.studioconsulenzaelia.it',
   },
   {
     title:    'PronosticiPro',
     category: 'SaaS & Abbonamenti',
     badge:    'IN DEV',
-    gradient: 'linear-gradient(160deg, #130f07 0%, #0c0a05 100%)',
   },
   {
     title:    'BookMe',
     category: 'App mobile',
     badge:    'IN DEV',
-    gradient: 'linear-gradient(160deg, #0c0e14 0%, #080a10 100%)',
   },
 ]
 
@@ -88,9 +87,7 @@ function GoldPlaceholder({ title }: { title: string }) {
     <>
       <div
         className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(160deg, #1a1408 0%, #0a0805 100%)',
-        }}
+        style={{ background: 'linear-gradient(160deg, #1a1408 0%, #0a0805 100%)' }}
       />
       <div
         aria-hidden="true"
@@ -121,6 +118,18 @@ function GoldPlaceholder({ title }: { title: string }) {
   )
 }
 
+function ProjectImage({ src, title }: { src: string; title: string }) {
+  return (
+    <Image
+      src={src}
+      alt={title}
+      fill
+      sizes="(max-width: 768px) 50vw, 20vw"
+      className="object-cover"
+    />
+  )
+}
+
 export default function Portfolio() {
   const ref    = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
@@ -142,80 +151,66 @@ export default function Portfolio() {
           variants={container}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4"
         >
-          {PROJECTS.map((p) => {
-            const inner = (
-              <>
+          {PROJECTS.map((p) => (
+            <motion.article
+              key={p.title}
+              variants={item}
+              style={{ aspectRatio: '4/3' }}
+              className="group relative overflow-hidden"
+            >
+              {/* Background: real screenshot or gold placeholder */}
+              {p.image ? (
+                <ProjectImage src={p.image} title={p.title} />
+              ) : (
                 <GoldPlaceholder title={p.title} />
+              )}
 
-                {/* Badge */}
-                {p.badge && (
-                  <div className="absolute top-3 left-3 z-20">
-                    <BadgePill badge={p.badge} />
-                  </div>
-                )}
+              {/* Badge */}
+              {p.badge && (
+                <div className="absolute top-3 left-3 z-20">
+                  <BadgePill badge={p.badge} />
+                </div>
+              )}
 
-                {/* External link icon for live projects */}
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-[#03030A]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 z-10 p-4 text-center">
+                <p className="font-serif text-base md:text-lg font-light text-white">
+                  {p.title}
+                </p>
+                <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-white/40">
+                  {p.category}
+                </p>
                 {p.url && (
-                  <div className="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                      <polyline points="15 3 21 3 21 9" />
-                      <line x1="10" y1="14" x2="21" y2="3" />
-                    </svg>
-                  </div>
+                  <p className="font-sans text-[9px] tracking-[0.15em] uppercase text-[#C8A84B] mt-1">
+                    Visita il sito →
+                  </p>
                 )}
+              </div>
 
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-[#03030A]/75 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 z-10 p-4 text-center">
-                  <p className="font-serif text-base md:text-lg font-light text-white">
-                    {p.title}
-                  </p>
-                  <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-white/40">
-                    {p.category}
-                  </p>
-                  {p.url && (
-                    <p className="font-sans text-[9px] tracking-[0.15em] uppercase text-[#C8A84B]/70 mt-1">
-                      Visita il sito →
-                    </p>
-                  )}
-                </div>
+              {/* Default bottom title (hidden on hover) */}
+              <div className="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-[#03030A]/80 to-transparent group-hover:opacity-0 transition-opacity duration-300 z-10">
+                <p className="font-serif text-sm font-light text-white/80 leading-snug">
+                  {p.title}
+                </p>
+              </div>
 
-                {/* Default bottom title */}
-                <div className="absolute bottom-0 inset-x-0 p-3 bg-gradient-to-t from-[#03030A]/80 to-transparent group-hover:opacity-0 transition-opacity duration-300">
-                  <p className="font-serif text-sm font-light text-white/80 leading-snug">
-                    {p.title}
-                  </p>
-                </div>
+              {/* Gold border on hover */}
+              <div className="absolute inset-0 border border-[#C8A84B]/0 group-hover:border-[#C8A84B]/30 transition-colors duration-300 z-20 pointer-events-none" />
 
-                {/* Gold border on hover */}
-                <div className="absolute inset-0 border border-[#C8A84B]/0 group-hover:border-[#C8A84B]/30 transition-colors duration-300 z-10" />
-              </>
-            )
-
-            const sharedClasses = 'group relative overflow-hidden'
-
-            return (
-              <motion.article
-                key={p.title}
-                variants={item}
-                style={{ aspectRatio: '3/4' }}
-                className={sharedClasses}
-              >
-                {p.url ? (
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0 z-30"
-                    aria-label={`Visita ${p.title}`}
-                  />
-                ) : null}
-                {inner}
-              </motion.article>
-            )
-          })}
+              {/* Clickable overlay for live projects */}
+              {p.url && (
+                <a
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 z-30"
+                  aria-label={`Visita ${p.title}`}
+                />
+              )}
+            </motion.article>
+          ))}
         </motion.div>
       </div>
     </section>
