@@ -35,10 +35,16 @@ export default function Footer() {
           </ul>
         </nav>
 
-        <p className="font-sans text-[11px] text-white/25 text-center md:text-right leading-relaxed">
-          © {year} Praeluxor Digital Studio.
-          <br className="md:hidden" /> Tutti i diritti riservati.
-        </p>
+        <div className="flex flex-col items-center md:items-end gap-2">
+          <p className="font-sans text-[11px] text-white/25 text-center md:text-right leading-relaxed">
+            © {year} Praeluxor Digital Studio. Tutti i diritti riservati.
+          </p>
+          <p className="font-sans text-[10px] text-white/20 flex items-center gap-2">
+            <a href="/privacy-policy" className="hover:text-[#C8A84B] transition-colors duration-200">Privacy Policy</a>
+            <span>·</span>
+            <a href="/cookie-policy" className="hover:text-[#C8A84B] transition-colors duration-200">Cookie Policy</a>
+          </p>
+        </div>
       </div>
     </footer>
   )

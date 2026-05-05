@@ -17,33 +17,33 @@ const syne = Syne({
   display: 'swap',
 })
 
-const BASE_URL = 'https://praeluxor.com'
+const BASE_URL = 'https://www.praeluxor.com'
 
 export const metadata: Metadata = {
-  title: 'Praeluxor Digital Studio | Siti Web, App e SaaS su misura',
+  title: 'Praeluxor Digital Studio | Siti Web, App Mobile e SaaS',
   description:
-    'Praeluxor crea prodotti digitali con attenzione ossessiva ai dettagli: siti web, app mobile, SaaS, e-commerce e SEO tecnico. Studio digitale italiano.',
+    'Studio digitale italiano specializzato in siti web premium, app mobile e piattaforme SaaS. Design luxury, performance eccellenti, SEO tecnico avanzato.',
   keywords: [
-    'web design',
+    'siti web',
     'app mobile',
     'SaaS',
-    'e-commerce',
-    'SEO tecnico',
+    'web design',
+    'sviluppo web',
+    'SEO',
     'digital studio',
-    'sviluppo web Italia',
-    'consulenza digitale',
-    'Praeluxor',
+    'Crotone',
+    'Calabria',
+    'Italia',
   ],
   authors: [{ name: 'Praeluxor Digital Studio' }],
   creator: 'Praeluxor Digital Studio',
   metadataBase: new URL(BASE_URL),
-  alternates: { canonical: '/' },
+  alternates: { canonical: BASE_URL },
   openGraph: {
-    title: 'Praeluxor Digital Studio | Prodotti digitali su misura',
-    description:
-      'Costruiamo prodotti digitali con attenzione ossessiva ai dettagli: siti web, app mobile, SaaS ed e-commerce.',
+    title: 'Praeluxor Digital Studio',
+    description: 'Costruiamo esperienze digitali straordinarie.',
     url: BASE_URL,
-    siteName: 'Praeluxor Digital Studio',
+    siteName: 'Praeluxor',
     locale: 'it_IT',
     type: 'website',
     images: [
@@ -57,33 +57,31 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Praeluxor Digital Studio | Prodotti digitali su misura',
-    description: 'Costruiamo prodotti digitali con attenzione ossessiva ai dettagli.',
+    title: 'Praeluxor Digital Studio',
+    description: 'Costruiamo esperienze digitali straordinarie.',
     images: ['/images/og-image.jpg'],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+    googleBot: { index: true, follow: true },
   },
 }
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'ProfessionalService',
   name: 'Praeluxor Digital Studio',
   url: BASE_URL,
   email: 'praeluxor@gmail.com',
-  logo: `${BASE_URL}/images/logo.jpg`,
-  description:
-    'Studio digitale specializzato in siti web, app mobile, SaaS ed e-commerce.',
-  address: { '@type': 'PostalAddress', addressCountry: 'IT' },
+  description: 'Studio digitale specializzato in siti web, app mobile e SaaS',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Crotone',
+    addressRegion: 'Calabria',
+    addressCountry: 'IT',
+  },
+  serviceType: ['Web Design', 'App Mobile', 'SaaS', 'SEO', 'E-commerce'],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
