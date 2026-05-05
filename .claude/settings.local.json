@@ -5,7 +5,11 @@
       "Bash(Out-Null)",
       "PowerShell(New-Item *)",
       "Bash(Get-Content \"C:\\\\Users\\\\Utente\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--dati-utente-Desktop-sito-praeluxor\\\\e50f8ac1-a873-4e69-93c9-d1827259537f\\\\tasks\\\\bew0wbh5o.output\" -Wait)",
-      "Bash(Select-String -Pattern \"Success|Error|error|warn|Done|ready|created|Installing|npm|✓|✔|failed|FAILED\" --SimpleMatch)"
+      "Bash(Select-String -Pattern \"Success|Error|error|warn|Done|ready|created|Installing|npm|✓|✔|failed|FAILED\" --SimpleMatch)",
+      "PowerShell(Get-ChildItem \"D:\\\\dati_utente\\\\Desktop\\\\sito_praeluxor\" | Where-Object { $_.Name -notmatch \"^node_modules$|^\\\\.git$\" } | Select-Object Name, Length)",
+      "PowerShell(Get-ChildItem \"D:\\\\dati_utente\\\\Desktop\\\\sito_praeluxor\" -Force | Where-Object { $_.Name -ne \"node_modules\" -and $_.Name -ne \".git\" } | Format-Table Name, Mode -AutoSize)",
+      "Bash(npx next *)",
+      "Bash(npx tsc *)"
     ]
   }
 }
