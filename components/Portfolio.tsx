@@ -40,11 +40,13 @@ const PROJECTS: Project[] = [
     title:    'PronosticiPro',
     category: 'SaaS & Abbonamenti',
     badge:    'IN DEV',
+    image:    '/images/portfolio/pronosticipro.png',
   },
   {
     title:    'BookMe',
     category: 'App mobile',
     badge:    'IN DEV',
+    image:    '/images/portfolio/bookme.png',
   },
 ]
 
