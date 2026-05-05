@@ -6,49 +6,51 @@ import { motion } from 'framer-motion'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { useParticles } from '@/hooks/useParticles'
 
-const TICKER_ITEMS = [
-  'Siti Web', 'App Mobile', 'SaaS & Abbonamenti',
-  'E-commerce', 'SEO Tecnico', 'Consulenza Digitale',
-]
-
 const ORBIT_RINGS = [
-  { size: 168, duration: '12s', direction: 'normal',  dotSize: 8,  dotOpacity: 1   },
-  { size: 228, duration: '8s',  direction: 'reverse', dotSize: 6,  dotOpacity: 0.6 },
-  { size: 290, duration: '20s', direction: 'normal',  dotSize: 4,  dotOpacity: 0.3 },
+  { size: 300, duration: '12s', direction: 'normal',  dotSize: 6, dotOpacity: 0.9 },
+  { size: 370, duration: '8s',  direction: 'reverse', dotSize: 4, dotOpacity: 0.5 },
+  { size: 440, duration: '22s', direction: 'normal',  dotSize: 3, dotOpacity: 0.3 },
 ]
 
-const stagger = {
+const FLOATING_TAGS = [
+  { value: '8+',  label: 'Progetti Live', top: '10%',  left: 'auto', right: '2%',  bottom: 'auto', translateY: '0' },
+  { value: '3',   label: 'App in Dev',    top: 'auto', left: '2%',   right: 'auto', bottom: '12%',  translateY: '0' },
+  { value: '24h', label: 'Risposta',      top: '50%',  left: 'auto', right: '0',    bottom: 'auto', translateY: '-50%' },
+]
+
+const container = {
   hidden:  {},
-  visible: { transition: { staggerChildren: 0.22 } },
+  visible: { transition: { staggerChildren: 0.14 } },
 }
 
-const line = {
-  hidden:  { opacity: 0, y: 44 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
+const fadeUp = {
+  hidden:  { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
+  },
 }
 
 export default function Hero() {
-  const canvasRef    = useRef<HTMLCanvasElement>(null)
-  const reduced      = useReducedMotion()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const reduced   = useReducedMotion()
   const [mobile, setMobile] = useState(() =>
     typeof window !== 'undefined' ? window.innerWidth < 768 : false
   )
 
   useEffect(() => {
     const check = () => setMobile(window.innerWidth < 768)
-    check()
     window.addEventListener('resize', check, { passive: true })
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  useParticles(canvasRef, 80, reduced || mobile)
-
-  const tickerFull = [...TICKER_ITEMS, ...TICKER_ITEMS]
+  useParticles(canvasRef, 60, reduced || mobile)
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden">
 
-      {/* Canvas */}
+      {/* Canvas particles */}
       {!reduced && !mobile && (
         <canvas
           ref={canvasRef}
@@ -57,142 +59,209 @@ export default function Hero() {
         />
       )}
 
-      {/* Radial glow */}
+      {/* Ambient glow — right side */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(200,168,75,0.05) 0%, transparent 70%)',
+            'radial-gradient(ellipse 55% 70% at 78% 50%, rgba(200,168,75,0.06) 0%, transparent 65%)',
         }}
       />
 
-      <div className="relative z-10 flex flex-col items-center gap-10 md:gap-14 px-4 w-full max-w-6xl mx-auto text-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-0 md:min-h-screen flex items-center">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-        {/* Logo + orbit rings */}
-        <div className="relative flex items-center justify-center" style={{ width: 290, height: 290 }}>
-          {ORBIT_RINGS.map(({ size, duration, direction, dotSize, dotOpacity }, i) => {
-            const offset = (290 - size) / 2
-            return (
-              <div
-                key={i}
-                aria-hidden="true"
-                className="absolute rounded-full border border-[#C8A84B]"
-                style={{
-                  width: size,
-                  height: size,
-                  top: offset,
-                  left: offset,
-                  opacity: 0.15 + i * 0.05,
-                  animation: `spin-orbit ${duration} linear ${direction} infinite`,
-                }}
+          {/* ─── LEFT — text ─── */}
+          <motion.div
+            variants={container}
+            initial={reduced ? 'visible' : 'hidden'}
+            animate="visible"
+            className="flex flex-col gap-8 text-center md:text-left"
+          >
+            {/* Kicker */}
+            <motion.div
+              variants={fadeUp}
+              className="flex items-center justify-center md:justify-start gap-2"
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={{ backgroundColor: '#C8A84B' }}
+              />
+              <span className="font-sans text-[10px] tracking-[0.35em] uppercase text-[#C8A84B]">
+                Praeluxor — Digital Studio
+              </span>
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              variants={fadeUp}
+              className="font-serif leading-[0.95] tracking-tight"
+              style={{ fontWeight: 300 }}
+            >
+              <span className="block text-[3.5rem] md:text-[5rem] lg:text-[6rem] text-white">
+                Costruiamo
+              </span>
+              <span
+                className="block text-[3.5rem] md:text-[5rem] lg:text-[6rem] italic"
+                style={{ color: '#E8C96A' }}
               >
+                esperienze
+              </span>
+              <span className="block text-[3.5rem] md:text-[5rem] lg:text-[6rem] text-stroke">
+                digitali.
+              </span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              variants={fadeUp}
+              className="font-sans text-sm md:text-base leading-relaxed text-white/40 max-w-md mx-auto md:mx-0"
+            >
+              App, siti web e piattaforme SaaS che trasformano idee ambiziose in prodotti concreti.
+              Design premium. Performance senza compromessi.
+            </motion.p>
+
+            {/* Buttons */}
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-col sm:flex-row items-center md:items-start gap-4 justify-center md:justify-start"
+            >
+              {/* Primary — gold gradient + shimmer */}
+              <a
+                href="#contatti"
+                className="relative overflow-hidden group inline-flex items-center justify-center min-h-[52px] w-full sm:w-auto px-8 py-3 font-sans text-xs font-bold tracking-[0.22em] uppercase text-[#03030A] select-none"
+                style={{ background: 'linear-gradient(135deg, #E8C96A 0%, #C8A84B 100%)' }}
+              >
+                <span className="relative z-10">Inizia il Progetto</span>
+                {/* Shimmer sweep */}
                 <span
-                  className="absolute rounded-full bg-[#C8A84B]"
+                  aria-hidden="true"
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"
                   style={{
-                    width: dotSize,
-                    height: dotSize,
-                    top: -dotSize / 2,
-                    left: '50%',
-                    marginLeft: -dotSize / 2,
-                    opacity: dotOpacity,
-                    boxShadow: `0 0 ${dotSize * 2}px #C8A84B`,
+                    background:
+                      'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.32) 50%, transparent 100%)',
                   }}
                 />
+              </a>
+
+              {/* Ghost */}
+              <a
+                href="#portfolio"
+                className="inline-flex items-center justify-center gap-2 min-h-[52px] px-4 py-3 font-sans text-xs tracking-[0.22em] uppercase text-white/35 hover:text-[#C8A84B] transition-colors duration-200 group"
+              >
+                Vedi Portfolio
+                <span className="text-[#C8A84B] group-hover:translate-x-1 transition-transform duration-200">
+                  →
+                </span>
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* ─── RIGHT — visual (hidden on mobile) ─── */}
+          <div className="hidden md:flex items-center justify-center relative" style={{ minHeight: 500 }}>
+
+            {/* Orbit + logo container */}
+            <div
+              className="relative flex items-center justify-center flex-shrink-0"
+              style={{ width: 440, height: 440 }}
+            >
+              {/* Radial glow behind logo */}
+              <div
+                aria-hidden="true"
+                className="absolute rounded-full pointer-events-none"
+                style={{
+                  width: 280,
+                  height: 280,
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  background:
+                    'radial-gradient(circle, rgba(200,168,75,0.22) 0%, transparent 68%)',
+                }}
+              />
+
+              {/* Orbit rings */}
+              {ORBIT_RINGS.map(({ size, duration, direction, dotSize, dotOpacity }, i) => {
+                const offset = (440 - size) / 2
+                return (
+                  <div
+                    key={i}
+                    aria-hidden="true"
+                    className="absolute rounded-full border border-[#C8A84B]"
+                    style={{
+                      width: size,
+                      height: size,
+                      top: offset,
+                      left: offset,
+                      opacity: 0.12 + i * 0.04,
+                      animation: `spin-orbit ${duration} linear ${direction} infinite`,
+                    }}
+                  >
+                    <span
+                      className="absolute rounded-full bg-[#C8A84B]"
+                      style={{
+                        width: dotSize,
+                        height: dotSize,
+                        top: -dotSize / 2,
+                        left: '50%',
+                        marginLeft: -dotSize / 2,
+                        opacity: dotOpacity,
+                        boxShadow: `0 0 ${dotSize * 3}px #C8A84B`,
+                      }}
+                    />
+                  </div>
+                )
+              })}
+
+              {/* Logo — slow rotation */}
+              <div
+                className="relative z-10 flex-shrink-0"
+                style={{ animation: 'spin-orbit 20s linear infinite' }}
+              >
+                <Image
+                  src="/images/logo.png"
+                  alt="Praeluxor Digital Studio"
+                  width={200}
+                  height={200}
+                  priority
+                  className="object-contain"
+                />
               </div>
-            )
-          })}
+            </div>
 
-          {/* Logo */}
-          <div
-            className="relative rounded-full overflow-hidden border-2 border-[#C8A84B]/50 z-10"
-            style={{
-              width: 110,
-              height: 110,
-              boxShadow: '0 0 24px rgba(200,168,75,0.25)',
-            }}
-          >
-            <Image
-              src="/images/logo.jpg"
-              alt="Praeluxor Digital Studio"
-              fill
-              priority
-              className="object-cover"
-              sizes="110px"
-            />
+            {/* Floating tags — positioned relative to the right column */}
+            {FLOATING_TAGS.map(({ value, label, top, left, right, bottom, translateY }) => (
+              <div
+                key={label}
+                className="absolute z-20 pointer-events-none"
+                style={{ top, left, right, bottom, transform: `translateY(${translateY})` }}
+              >
+                <div
+                  className="px-4 py-3 flex flex-col items-center gap-0.5 min-w-[72px]"
+                  style={{
+                    background: 'rgba(3,3,10,0.72)',
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)',
+                    border: '1px solid rgba(200,168,75,0.28)',
+                  }}
+                >
+                  <span
+                    className="font-serif text-2xl leading-none text-white"
+                    style={{ fontWeight: 300 }}
+                  >
+                    {value}
+                  </span>
+                  <span className="font-sans text-[9px] tracking-[0.18em] uppercase text-[#C8A84B]/55 whitespace-nowrap">
+                    {label}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
 
-        {/* Headline */}
-        <motion.div
-          variants={stagger}
-          initial={reduced ? 'visible' : 'hidden'}
-          animate="visible"
-        >
-          <h1 className="font-serif font-light leading-[1.1] tracking-tight">
-            <motion.span
-              variants={line}
-              className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white"
-            >
-              Costruiamo
-            </motion.span>
-            <motion.span
-              variants={line}
-              className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl italic"
-              style={{ color: '#E8C96A' }}
-            >
-              prodotti digitali
-            </motion.span>
-            <motion.span
-              variants={line}
-              className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-stroke"
-            >
-              straordinari.
-            </motion.span>
-          </h1>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.6 }}
-        >
-          <a
-            href="#contatti"
-            className="inline-flex items-center gap-3 min-h-[52px] px-8 py-3 border border-[#C8A84B] text-[#C8A84B] font-sans text-xs tracking-[0.2em] uppercase hover:bg-[#C8A84B] hover:text-[#03030A] transition-all duration-300 group"
-          >
-            Inizia il Progetto
-            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-          </a>
-        </motion.div>
-      </div>
-
-      {/* Ticker */}
-      <div className="absolute bottom-0 inset-x-0 border-t border-[#C8A84B]/10 py-3 overflow-hidden bg-[#03030A]/50 backdrop-blur-sm">
-        <div
-          aria-hidden="true"
-          className="flex whitespace-nowrap"
-          style={{ animation: 'ticker 32s linear infinite' }}
-        >
-          {tickerFull.map((item, i) => (
-            <span
-              key={i}
-              className="inline-flex items-center gap-8 px-8 font-sans text-[11px] tracking-[0.25em] uppercase text-[#C8A84B]/50"
-            >
-              {item}
-              <span className="text-[#C8A84B]/20 text-base">·</span>
-            </span>
-          ))}
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div
-        aria-hidden="true"
-        className="absolute bottom-14 left-1/2 -translate-x-1/2 w-px h-8 bg-[#C8A84B]/30"
-        style={{ animation: 'fade-pulse 2s ease-in-out infinite' }}
-      />
     </section>
   )
 }
