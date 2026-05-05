@@ -20,7 +20,7 @@ const VALUES = [
 
 const container = {
   hidden:  {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.13 } },
 }
 const fadeUp = {
   hidden:  { opacity: 0, y: 24 },
@@ -52,47 +52,47 @@ export default function Studio() {
 
             <motion.h2
               variants={fadeUp}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-white mb-8 leading-tight"
+              className="font-serif text-4xl md:text-5xl lg:text-6xl font-light leading-tight mb-10"
+              style={{ color: '#E8C96A' }}
             >
-              Lo Studio
+              Praeluxor —<br />Digital Studio
             </motion.h2>
 
             <motion.p
               variants={fadeUp}
-              className="font-sans text-sm md:text-base text-white/50 leading-relaxed"
+              className="font-sans text-sm md:text-base text-white/55 leading-relaxed"
             >
-              Praeluxor nasce dalla convinzione che il digitale debba essere bello, veloce e
-              strategico. Siamo un team di designer e sviluppatori con una visione comune:
-              costruire prodotti digitali che lascino il segno.
+              Progettiamo e sviluppiamo prodotti digitali con un&apos;attenzione maniacale ai
+              dettagli. Ogni progetto è trattato come se fosse l&apos;unico: nessuna soluzione
+              preconfezionata, nessun compromesso sulla qualità. Dal concept al deploy,
+              controlliamo ogni fase con precisione chirurgica.
             </motion.p>
 
             <motion.p
               variants={fadeUp}
-              className="font-sans text-sm md:text-base text-white/50 leading-relaxed mt-4"
+              className="font-sans text-sm md:text-base text-white/40 leading-relaxed mt-5"
             >
-              Lavoriamo in modo snello, con attenzione ossessiva ai dettagli e un approccio
-              orientato ai risultati. Niente overhead, niente burocrazia — solo esecuzione
-              di alto livello.
+              Il nostro approccio è semplice: capire profondamente il problema, costruire
+              la soluzione giusta, consegnarla senza scuse.
             </motion.p>
           </div>
 
           {/* Right — values */}
-          <motion.div variants={container} className="flex flex-col gap-6 lg:pt-16">
-            {VALUES.map(({ label, desc }) => (
+          <motion.div variants={container} className="flex flex-col gap-0 lg:pt-20">
+            {VALUES.map(({ label, desc }, i) => (
               <motion.div
                 key={label}
                 variants={fadeUp}
-                className="group flex items-start gap-5 border-b border-[#C8A84B]/10 pb-6 last:border-0 last:pb-0"
+                className="group flex items-start gap-6 py-7 border-b border-[#C8A84B]/10 first:border-t"
               >
-                <span
-                  className="mt-1 w-1 h-1 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: '#C8A84B' }}
-                />
+                <span className="font-sans text-[10px] text-[#C8A84B]/40 tracking-widest pt-1 w-5 flex-shrink-0 select-none">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 <div>
-                  <p className="font-serif text-xl font-light text-white group-hover:text-[#E8C96A] transition-colors duration-200">
+                  <p className="font-serif text-2xl font-light text-white group-hover:text-[#E8C96A] transition-colors duration-300">
                     {label}
                   </p>
-                  <p className="font-sans text-xs text-white/35 tracking-wide mt-1">
+                  <p className="font-sans text-xs text-[#C8A84B]/50 tracking-[0.15em] uppercase mt-1.5">
                     {desc}
                   </p>
                 </div>

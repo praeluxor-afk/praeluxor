@@ -20,12 +20,6 @@ export default function Footer() {
           <p className="font-sans text-[11px] text-white/25 tracking-wider mt-0.5">
             Digital Studio
           </p>
-          <a
-            href="mailto:praeluxor@gmail.com"
-            className="font-sans text-[11px] text-[#C8A84B]/50 hover:text-[#C8A84B] transition-colors duration-200 mt-2 inline-block"
-          >
-            praeluxor@gmail.com
-          </a>
         </div>
 
         {/* Nav */}
