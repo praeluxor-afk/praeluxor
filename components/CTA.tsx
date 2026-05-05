@@ -77,14 +77,6 @@ export default function CTA() {
             insieme.
           </h2>
 
-          <a
-            href="mailto:praeluxor@gmail.com"
-            className="inline-flex items-center gap-3 min-h-[52px] px-10 py-4 bg-[#C8A84B] text-[#03030A] font-sans text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[#E8C96A] transition-all duration-300 group"
-          >
-            praeluxor@gmail.com
-            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-          </a>
-
           {/* Contact form */}
           <form
             onSubmit={handleSubmit}

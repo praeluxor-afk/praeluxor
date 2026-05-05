@@ -7,15 +7,15 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { useParticles } from '@/hooks/useParticles'
 
 const ORBIT_RINGS = [
-  { size: 300, duration: '12s', direction: 'normal',  dotSize: 6, dotOpacity: 0.9 },
-  { size: 370, duration: '8s',  direction: 'reverse', dotSize: 4, dotOpacity: 0.5 },
-  { size: 440, duration: '22s', direction: 'normal',  dotSize: 3, dotOpacity: 0.3 },
+  { size: 420, duration: '12s', direction: 'normal',  dotSize: 8, dotOpacity: 0.9 },
+  { size: 540, duration: '8s',  direction: 'reverse', dotSize: 6, dotOpacity: 0.5 },
+  { size: 660, duration: '22s', direction: 'normal',  dotSize: 4, dotOpacity: 0.3 },
 ]
 
 const FLOATING_TAGS = [
-  { value: '8+',  label: 'Progetti Live', top: '10%',  left: 'auto', right: '2%',  bottom: 'auto', translateY: '0' },
-  { value: '3',   label: 'App in Dev',    top: 'auto', left: '2%',   right: 'auto', bottom: '12%',  translateY: '0' },
-  { value: '24h', label: 'Risposta',      top: '50%',  left: 'auto', right: '0',    bottom: 'auto', translateY: '-50%' },
+  { value: '8+',  label: 'Progetti Live', top: '8%',   left: 'auto', right: '3%',  bottom: 'auto', translateY: '0' },
+  { value: '3',   label: 'App in Dev',    top: 'auto', left: '3%',   right: 'auto', bottom: '10%',  translateY: '0' },
+  { value: '24h', label: 'Risposta',      top: '50%',  left: 'auto', right: '1%',   bottom: 'auto', translateY: '-50%' },
 ]
 
 const container = {
@@ -159,20 +159,20 @@ export default function Hero() {
           </motion.div>
 
           {/* ─── RIGHT — visual (hidden on mobile) ─── */}
-          <div className="hidden md:flex items-center justify-center relative" style={{ minHeight: 500 }}>
+          <div className="hidden md:flex items-center justify-center relative overflow-hidden" style={{ minHeight: 700 }}>
 
             {/* Orbit + logo container */}
             <div
               className="relative flex items-center justify-center flex-shrink-0"
-              style={{ width: 440, height: 440 }}
+              style={{ width: 680, height: 680 }}
             >
               {/* Radial glow behind logo */}
               <div
                 aria-hidden="true"
                 className="absolute rounded-full pointer-events-none"
                 style={{
-                  width: 280,
-                  height: 280,
+                  width: 400,
+                  height: 400,
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
@@ -183,7 +183,7 @@ export default function Hero() {
 
               {/* Orbit rings */}
               {ORBIT_RINGS.map(({ size, duration, direction, dotSize, dotOpacity }, i) => {
-                const offset = (440 - size) / 2
+                const offset = (680 - size) / 2
                 return (
                   <div
                     key={i}
@@ -222,8 +222,8 @@ export default function Hero() {
                 <Image
                   src="/images/logo.png"
                   alt="Praeluxor Digital Studio"
-                  width={200}
-                  height={200}
+                  width={280}
+                  height={280}
                   priority
                   className="object-contain"
                 />
