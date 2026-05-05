@@ -1,5 +1,6 @@
-const LINKS = [
+const NAV_LINKS = [
   { href: '#servizi',   label: 'Servizi'   },
+  { href: '#studio',    label: 'Studio'    },
   { href: '#portfolio', label: 'Portfolio' },
   { href: '#contatti',  label: 'Contatti'  },
 ]
@@ -9,8 +10,9 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-[#C8A84B]/10 py-12 px-4">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
 
+        {/* Brand */}
         <div className="text-center md:text-left">
           <p className="font-serif text-lg font-light tracking-[0.3em] uppercase text-white">
             Praeluxor
@@ -18,11 +20,18 @@ export default function Footer() {
           <p className="font-sans text-[11px] text-white/25 tracking-wider mt-0.5">
             Digital Studio
           </p>
+          <a
+            href="mailto:praeluxor@gmail.com"
+            className="font-sans text-[11px] text-[#C8A84B]/50 hover:text-[#C8A84B] transition-colors duration-200 mt-2 inline-block"
+          >
+            praeluxor@gmail.com
+          </a>
         </div>
 
+        {/* Nav */}
         <nav aria-label="Footer">
-          <ul className="flex items-center gap-6 md:gap-8">
-            {LINKS.map(({ href, label }) => (
+          <ul className="flex items-center gap-6 md:gap-8 flex-wrap justify-center">
+            {NAV_LINKS.map(({ href, label }) => (
               <li key={href}>
                 <a
                   href={href}
@@ -35,8 +44,9 @@ export default function Footer() {
           </ul>
         </nav>
 
+        {/* Legal */}
         <div className="flex flex-col items-center md:items-end gap-2">
-          <p className="font-sans text-[11px] text-white/25 text-center md:text-right leading-relaxed">
+          <p className="font-sans text-[11px] text-white/25 text-center md:text-right">
             © {year} Praeluxor Digital Studio. Tutti i diritti riservati.
           </p>
           <p className="font-sans text-[10px] text-white/20 flex items-center gap-2">
@@ -45,6 +55,7 @@ export default function Footer() {
             <a href="/cookie-policy" className="hover:text-[#C8A84B] transition-colors duration-200">Cookie Policy</a>
           </p>
         </div>
+
       </div>
     </footer>
   )

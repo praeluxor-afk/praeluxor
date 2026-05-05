@@ -9,6 +9,7 @@ type Badge = 'LIVE' | 'IN DEV' | null
 interface Project {
   title:    string
   category: string
+  desc:     string
   badge:    Badge
   image?:   string
   url?:     string
@@ -18,6 +19,7 @@ const PROJECTS: Project[] = [
   {
     title:    'Castello di Carlo V',
     category: 'Sito istituzionale',
+    desc:     'Turismo · Crotone · 2026',
     badge:    'LIVE',
     image:    '/images/portfolio/castello.png',
     url:      'https://www.castellocarlovcrotone.it',
@@ -25,6 +27,7 @@ const PROJECTS: Project[] = [
   {
     title:    'Premio Castello',
     category: 'Evento & Premio',
+    desc:     'Evento Culturale · Crotone · 2026',
     badge:    'LIVE',
     image:    '/images/portfolio/premio.png',
     url:      'https://www.premiocastellocrotone.it',
@@ -32,6 +35,7 @@ const PROJECTS: Project[] = [
   {
     title:    'Studio Elia',
     category: 'Sito professionale',
+    desc:     'Consulenza del Lavoro · Crotone · 2026',
     badge:    'LIVE',
     image:    '/images/portfolio/elia.png',
     url:      'https://www.studioconsulenzaelia.it',
@@ -39,12 +43,14 @@ const PROJECTS: Project[] = [
   {
     title:    'PronosticiPro',
     category: 'SaaS & Abbonamenti',
+    desc:     'SaaS · Pronostici Calcio · In sviluppo',
     badge:    'IN DEV',
     image:    '/images/portfolio/pronosticipro.png',
   },
   {
     title:    'BookMe',
     category: 'App mobile',
+    desc:     'App Mobile · Prenotazioni · In sviluppo',
     badge:    'IN DEV',
     image:    '/images/portfolio/bookme.png',
   },
@@ -183,6 +189,9 @@ export default function Portfolio() {
                 </p>
                 <p className="font-sans text-[10px] tracking-[0.2em] uppercase text-white/40">
                   {p.category}
+                </p>
+                <p className="font-sans text-[9px] text-white/25 mt-0.5">
+                  {p.desc}
                 </p>
                 {p.url && (
                   <p className="font-sans text-[9px] tracking-[0.15em] uppercase text-[#C8A84B] mt-1">

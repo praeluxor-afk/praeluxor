@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 const NAV_LINKS = [
-  { href: '#servizi', label: 'Servizi' },
+  { href: '#servizi',   label: 'Servizi'   },
+  { href: '#studio',    label: 'Studio'    },
   { href: '#portfolio', label: 'Portfolio' },
-  { href: '#contatti', label: 'Contatti' },
+  { href: '#contatti',  label: 'Contatti'  },
 ]
 
 export default function Navbar() {

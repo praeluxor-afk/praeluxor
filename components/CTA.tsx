@@ -18,7 +18,7 @@ export default function CTA() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   const [status, setStatus]   = useState<Status>('idle')
-  const [form, setForm]       = useState({ from_name: '', from_email: '', message: '' })
+  const [form, setForm]       = useState({ from_name: '', from_email: '', phone: '', message: '' })
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -35,13 +35,14 @@ export default function CTA() {
         {
           from_name:  form.from_name,
           from_email: form.from_email,
+          phone:      form.phone,
           message:    form.message,
           reply_to:   form.from_email,
         },
         EMAILJS_KEY,
       )
       setStatus('success')
-      setForm({ from_name: '', from_email: '', message: '' })
+      setForm({ from_name: '', from_email: '', phone: '', message: '' })
     } catch {
       setStatus('error')
     }
@@ -104,6 +105,15 @@ export default function CTA() {
                 className={inputClass}
               />
             </div>
+
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="Telefono (opzionale)"
+              className={inputClass}
+            />
 
             <textarea
               name="message"
