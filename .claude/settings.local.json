@@ -9,7 +9,10 @@
       "PowerShell(Get-ChildItem \"D:\\\\dati_utente\\\\Desktop\\\\sito_praeluxor\" | Where-Object { $_.Name -notmatch \"^node_modules$|^\\\\.git$\" } | Select-Object Name, Length)",
       "PowerShell(Get-ChildItem \"D:\\\\dati_utente\\\\Desktop\\\\sito_praeluxor\" -Force | Where-Object { $_.Name -ne \"node_modules\" -and $_.Name -ne \".git\" } | Format-Table Name, Mode -AutoSize)",
       "Bash(npx next *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(npm install *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }

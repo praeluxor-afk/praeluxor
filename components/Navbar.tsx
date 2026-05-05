@@ -32,15 +32,13 @@ export default function Navbar() {
 
           {/* Logo mark */}
           <a href="#" className="flex items-center gap-3 group">
-            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#C8A84B]/30 group-hover:border-[#C8A84B] transition-colors duration-300">
-              <Image
-                src="/images/logo.jpg"
-                alt="Praeluxor logo"
-                fill
-                className="object-cover"
-                sizes="36px"
-              />
-            </div>
+            <Image
+              src="/images/logo.png"
+              alt="Praeluxor logo"
+              width={40}
+              height={40}
+              className="object-contain"
+            />
             <span
               className="font-serif text-base md:text-lg font-light tracking-[0.25em] uppercase text-white"
             >
