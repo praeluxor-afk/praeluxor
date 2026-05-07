@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Syne } from 'next/font/google'
+import Script from 'next/script'
 import CookieBanner from '@/components/CookieBanner'
+import WhatsappButton from '@/components/WhatsappButton'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -38,6 +40,9 @@ export const metadata: Metadata = {
   creator: 'Praeluxor Digital Studio',
   metadataBase: new URL(BASE_URL),
   alternates: { canonical: BASE_URL },
+  verification: {
+    google: 'kzDVUuVFnixbQA4ix2mrQXMK6trk23N7afp9P',
+  },
   openGraph: {
     title: 'Praeluxor Digital Studio',
     description: 'Costruiamo esperienze digitali straordinarie.',
@@ -100,7 +105,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-background text-white antialiased">
         {children}
         <CookieBanner />
+        <WhatsappButton />
       </body>
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-VT7VGRXNGE"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VT7VGRXNGE');
+        `}
+      </Script>
     </html>
   )
 }
