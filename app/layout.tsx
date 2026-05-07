@@ -32,8 +32,6 @@ export const metadata: Metadata = {
     'sviluppo web',
     'SEO',
     'digital studio',
-    'Crotone',
-    'Calabria',
     'Italia',
   ],
   authors: [{ name: 'Praeluxor Digital Studio' }],
