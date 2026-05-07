@@ -12,6 +12,13 @@ const ORBIT_RINGS = [
   { size: 660, duration: '22s', direction: 'normal',  dotSize: 4, dotOpacity: 0.3 },
 ]
 
+// ~43% of desktop values, fits within 300px container
+const ORBIT_RINGS_MOBILE = [
+  { size: 180, duration: '12s', direction: 'normal',  dotSize: 4, dotOpacity: 0.9 },
+  { size: 230, duration: '8s',  direction: 'reverse', dotSize: 3, dotOpacity: 0.5 },
+  { size: 280, duration: '22s', direction: 'normal',  dotSize: 2, dotOpacity: 0.3 },
+]
+
 const FLOATING_TAGS = [
   { value: '8+',  label: 'Progetti Live', top: '8%',   left: 'auto', right: '3%',  bottom: 'auto', translateY: '0' },
   { value: '3',   label: 'App in Dev',    top: 'auto', left: '3%',   right: 'auto', bottom: '10%',  translateY: '0' },
@@ -69,7 +76,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-0 md:min-h-screen flex items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-0 md:min-h-screen flex items-center">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* ─── LEFT — text ─── */}
@@ -93,22 +100,95 @@ export default function Hero() {
               </span>
             </motion.div>
 
+            {/* Mobile logo — visible only below md, floating tags excluded */}
+            <motion.div
+              variants={fadeUp}
+              className="flex md:hidden items-center justify-center"
+              aria-hidden="true"
+            >
+              <div
+                className="relative flex items-center justify-center flex-shrink-0"
+                style={{ width: 300, height: 300 }}
+              >
+                {/* Radial glow */}
+                <div
+                  className="absolute rounded-full pointer-events-none"
+                  style={{
+                    width: 180,
+                    height: 180,
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    background:
+                      'radial-gradient(circle, rgba(200,168,75,0.22) 0%, transparent 68%)',
+                  }}
+                />
+
+                {/* Orbit rings (mobile scale) */}
+                {ORBIT_RINGS_MOBILE.map(({ size, duration, direction, dotSize, dotOpacity }, i) => {
+                  const offset = (300 - size) / 2
+                  return (
+                    <div
+                      key={i}
+                      className="absolute rounded-full border border-[#C8A84B]"
+                      style={{
+                        width: size,
+                        height: size,
+                        top: offset,
+                        left: offset,
+                        opacity: 0.12 + i * 0.04,
+                        animation: `spin-orbit ${duration} linear ${direction} infinite`,
+                      }}
+                    >
+                      <span
+                        className="absolute rounded-full bg-[#C8A84B]"
+                        style={{
+                          width: dotSize,
+                          height: dotSize,
+                          top: -dotSize / 2,
+                          left: '50%',
+                          marginLeft: -dotSize / 2,
+                          opacity: dotOpacity,
+                          boxShadow: `0 0 ${dotSize * 3}px #C8A84B`,
+                        }}
+                      />
+                    </div>
+                  )
+                })}
+
+                {/* Logo */}
+                <div
+                  className="relative z-10 flex-shrink-0"
+                  style={{ animation: 'spin-orbit 20s linear infinite' }}
+                >
+                  <Image
+                    src="/images/logo.png"
+                    alt="Praeluxor Digital Studio"
+                    width={120}
+                    height={120}
+                    priority
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            </motion.div>
+
             {/* Headline */}
             <motion.h1
               variants={fadeUp}
               className="font-serif leading-[0.95] tracking-tight"
               style={{ fontWeight: 300 }}
             >
-              <span className="block text-[3.5rem] md:text-[5rem] lg:text-[6rem] text-white">
+              <span className="block text-[3rem] md:text-[5rem] lg:text-[6rem] text-white">
                 Costruiamo
               </span>
               <span
-                className="block text-[3.5rem] md:text-[5rem] lg:text-[6rem] italic"
+                className="block text-[3rem] md:text-[5rem] lg:text-[6rem] italic"
                 style={{ color: '#E8C96A' }}
               >
                 esperienze
               </span>
-              <span className="block text-[3.5rem] md:text-[5rem] lg:text-[6rem] text-stroke">
+              <span className="block text-[3rem] md:text-[5rem] lg:text-[6rem] text-stroke">
                 digitali.
               </span>
             </motion.h1>
@@ -158,7 +238,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* ─── RIGHT — visual (hidden on mobile) ─── */}
+          {/* ─── RIGHT — visual (desktop only) ─── */}
           <div className="hidden md:flex items-center justify-center relative overflow-hidden" style={{ minHeight: 700 }}>
 
             {/* Orbit + logo container */}
