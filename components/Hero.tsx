@@ -164,8 +164,8 @@ export default function Hero() {
                   <Image
                     src="/images/logo.png"
                     alt="Praeluxor Digital Studio"
-                    width={120}
-                    height={120}
+                    width={160}
+                    height={160}
                     priority
                     className="object-contain"
                   />
@@ -302,8 +302,8 @@ export default function Hero() {
                 <Image
                   src="/images/logo.png"
                   alt="Praeluxor Digital Studio"
-                  width={280}
-                  height={280}
+                  width={340}
+                  height={340}
                   priority
                   className="object-contain"
                 />
